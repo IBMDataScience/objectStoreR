@@ -12,7 +12,8 @@ If you do not have the R Package devtools installed, execute the three lines bel
 ```
 install.packages('devtools')
 library(devtools)
-install_github('IBMDataScience/objectStoreR')
+install_github('IBMDataScience/objectStoreR') #installs the package
+library('objectStoreR')  #loads the package for use
 ```
 
 ### Credentials for API
