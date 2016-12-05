@@ -1,4 +1,4 @@
-
+#helper fuction for passing creds correctly:
 make_json <- function(creds) {
   paste("{\"auth\": {\"identity\": {\"password\": {\"user\": {\"domain\": {\"id\": \"",
         creds["domain_id"],
@@ -9,6 +9,20 @@ make_json <- function(creds) {
         "\"}}, \"methods\": [\"password\"]}}}",
         sep="")
 }
+
+#' Fuction for saving data to ObjectStore
+#'
+#' This function pushes data to objectStore from your kernel
+#' @param creds your swift credentials, see README for further info
+#' @keywords swift
+#' @export
+#' @examples
+#' #this example runs in DSX
+#' creds <-list(auth_url = "https://identity.open.softlayer.com",project = "object_storage_92c67982_------",project_id = "7babac2c------------------",region = "dallas",user_id = "18aa------------------",domain_id = "2c------------------",domain_name =  "------",username = "admin_774cd5e------------------------",password = "i------------",container = "notebooks")
+
+#' write.csv(df,'myCSVforGit.csv')
+#' status<- objectStore.put(creds,'myCSVforGit.csv')
+#' status
 
 objectStore.put <- function(creds, out_file) {
   url_1 <- paste(creds["auth_url"], "/v3/auth/tokens", sep="")
