@@ -42,9 +42,20 @@ objectStore.get <- function(creds) {
     }
   }
   subject_token = toString(post[["headers"]]["x-subject-token"])
+
+  if(strsplit(creds$filename, "\\.")[[1]][2]=="csv"){
   get <- httr::GET(url=url_2, httr::add_headers("X-Auth-Token"=subject_token, "accept"="application/json"))
   raw_csv <- httr::content(get, "text", "text/csv")
   return(read.csv(textConnection(raw_csv)))
+  } else if(strsplit(creds$filename, "\\.")[[1]][2]=="json"){
+
+    raw_json <- httr::content(httr::GET(url = url_2, httr::add_headers ("Content-Type" = "application/json", "X-Auth-Token" = subject_token)), as="text")
+
+    return(fromJSON(raw_json) )
+    } else {
+    paste("Error: file type not supported")
+    return
+  }
 
 
 }
