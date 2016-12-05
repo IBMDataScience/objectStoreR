@@ -65,3 +65,15 @@ write.csv(df,'myCSVforGit.csv')
 status<- objectStore.put(creds,'myCSVforGit.csv')
 status
 ```
+
+
+### Load files from objectStore directly to spark data frame with sparklyr
+Set you credentials as listed above, and then after creating a spark context you can set your swift credentials and load a data set from objectStore to your spark context with the following commands:
+```
+#set swift configs with spark context (sc) and swift configs (creds):
+set_swift_config(sc, creds)
+
+#load a data set into the spark environment: 
+spark_object_name = "dataFromSwift" #what you want the object called in spark
+swift_data_object_path = "swift://sparklyrenvironment.keystone//flights3.csv"
+sparklyr::spark_read_csv(sc, spark_object_name,swift_data_object_path)
